@@ -1,0 +1,19 @@
+{
+    "patients": [
+      {
+        "name": "John Doe",
+        "age": 30,
+        "medicalhistory": [
+          "diabetes",
+          "hypertension"
+        ]
+      },
+      {
+        "name": "Jane Doe",
+        "age": 28,
+        "medicalhistory": [
+          "asthma"
+        ]
+      }
+    ]
+  }
