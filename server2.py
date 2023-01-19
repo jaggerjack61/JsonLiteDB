@@ -4,7 +4,7 @@ import json
 class RequestHandler(http.server.BaseHTTPRequestHandler): 
 	def do_GET(self): 
 		if self.path == '/': 
-			self._send_json({'message': 'Welcome to the API!'},200) 
+		    self._send_json({'message': 'Welcome to the API!'},200) 
 		else: 
 			self._send_json({'error': 'Not found'}, 404) 
 

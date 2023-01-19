@@ -1,0 +1,22 @@
+{
+    "patients": {
+        "schema": [
+            {
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "name": "country",
+                "type": "string"
+            },
+            {
+                "name": "category",
+                "type": "string"
+            },
+            {
+                "name": "year",
+                "type": "integer"
+            }
+        ]
+    }
+}
