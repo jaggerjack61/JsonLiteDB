@@ -16,6 +16,33 @@
             {
                 "name": "year",
                 "type": "integer"
+            },
+            {
+                "name": "id",
+                "type": "integer"
+            }
+        ],
+        "values": [
+            {
+                "name": "sam",
+                "country": "zim",
+                "category": "ICU",
+                "year": 2023,
+                "id": 3
+            },
+            {
+                "name": "sam",
+                "country": "zim",
+                "category": "ICU",
+                "year": 2023,
+                "id": 4
+            },
+            {
+                "name": "sam",
+                "country": "zim",
+                "category": "ICU",
+                "year": 2024,
+                "id": 5
             }
         ]
     }
