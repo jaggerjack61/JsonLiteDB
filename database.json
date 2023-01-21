@@ -22,7 +22,29 @@
                 "type": "integer"
             }
         ],
-        "values": []
+        "values": [
+            {
+                "name": "sam",
+                "country": "zim",
+                "category": "ICU",
+                "year": 2023,
+                "id": 1
+            },
+            {
+                "name": "sam",
+                "country": "zim",
+                "category": "ICU",
+                "year": 2023,
+                "id": 2
+            },
+            {
+                "name": "sam",
+                "country": "zim",
+                "category": "ICU",
+                "year": 2023,
+                "id": 4
+            }
+        ]
     },
     "bills": {
         "schema": [
