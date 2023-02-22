@@ -1,4 +1,44 @@
 {
+    "doctors": {
+        "schema": [
+            {
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "name": "country",
+                "type": "string"
+            },
+            {
+                "name": "category",
+                "type": "string"
+            },
+            {
+                "name": "year",
+                "type": "integer"
+            },
+            {
+                "name": "id",
+                "type": "integer"
+            }
+        ],
+        "values": [
+            {
+                "name": "sam",
+                "country": "zim",
+                "category": "ICU",
+                "year": 2023,
+                "id": 1
+            },
+            {
+                "name": "sam",
+                "country": "zim",
+                "category": "ICU",
+                "year": 2023,
+                "id": 2
+            }
+        ]
+    },
     "patients": {
         "schema": [
             {
@@ -38,7 +78,14 @@
                 "id": 2
             },
             {
-                "name": "sam",
+                "name": "saml",
+                "country": "zim",
+                "category": "ICU",
+                "year": 2023,
+                "id": 3
+            },
+            {
+                "name": "saml",
                 "country": "zim",
                 "category": "ICU",
                 "year": 2023,
@@ -68,6 +115,7 @@
                 "name": "id",
                 "type": "integer"
             }
-        ]
+        ],
+        "values": []
     }
 }

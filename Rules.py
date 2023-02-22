@@ -42,7 +42,10 @@ class Rules:
         else:
             if 'values' in database[table_name]:
                 id = len(database[table_name]['values'])
-                id = database[table_name]['values'][id - 1]['id'] + 1
+                if id == 0:
+                    id = 1
+                else:
+                    id = database[table_name]['values'][id - 1]['id'] + 1
             else:
                 id = 1
             data.update({'id': id})
