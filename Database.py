@@ -5,7 +5,7 @@ import Rules as rule
 
 class Database:
     def __init__(self, filename):
-        self.filename = filename
+        self.filename = 'databases/'+filename
         self.ru = rule.Rules()
 
     def create_table(self, table_name, schema):
@@ -149,6 +149,28 @@ class Database:
                 # Return the output dictionary as well (optional)
             print(output)
             return output
+
+
+    def getTables(self):
+        output = []
+        with open(self.filename, 'r') as json_file:
+            database = json.load(json_file)
+            for table_name, table_data in database.items():
+                output.append({'name': table_name})
+
+            print(output)
+            return output
+
+
+    def getDatabases(self):
+        import os
+        path = "databases"  # replace with your directory path
+        json_files = [file for file in os.listdir(path) if file.endswith(".json")]  # get all files that end with .json
+        data=[]
+        for f in json_files:
+            data.append({'name':f})
+        print(data)
+        return data  # print the list of json files
 
     # def create_database(self, database_name):
     # 	with open(self.filename, 'r+') as json_file:
