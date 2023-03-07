@@ -14,12 +14,14 @@ class Database:
             database = json.load(json_file)
             if table_name in database:
                 print('Table already exists!')
+                return False
             else:
                 database[table_name] = {}
                 database[table_name]['schema'] = schema
                 database[table_name]['values'] = []
                 json_file.seek(0)
                 json.dump(database, json_file, indent=4)
+                return True
 
     def insert_data(self, table_name, data):
         with open(self.filename, 'r+', encoding='utf-8') as json_file:
@@ -186,15 +188,17 @@ class Database:
 
 
 
-    # def create_database(self, database_name):
-    # 	with open(self.filename, 'r+') as json_file:
-    #         database = json.load(json_file)
-    #         if database_name in database:
-    #             print('Database already exists!')
-    #         else:
-    #             database[database_name] = []
-    #             json_file.seek(0)
-    #             json.dump(database, json_file, indent=4)
-    #             print('Created')
+    def create_database(self):
+        import os
 
+        content = {}
+
+        if not os.path.exists(self.filename):
+            with open(self.filename, "w") as f:
+                json.dump(content, f)
+                print(f"Created {self.filename} with {content}")
+                return True
+        else:
+            print(f"{self.filename} already exists")
+            return False
 # db = Database('databse.json')

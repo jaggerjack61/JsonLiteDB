@@ -1,0 +1,42 @@
+{
+    "transformer_robots": {
+        "schema": [
+            {
+                "name": "name",
+                "type": "integer"
+            },
+            {
+                "name": "amount_of arms",
+                "type": "string"
+            },
+            {
+                "name": "id",
+                "type": "integer"
+            }
+        ],
+        "values": []
+    },
+    "test": {
+        "schema": [
+            {
+                "name": "num",
+                "type": "integer"
+            },
+            {
+                "name": "string",
+                "type": "string"
+            },
+            {
+                "name": "id",
+                "type": "integer"
+            }
+        ],
+        "values": [
+            {
+                "num": 1,
+                "string": "abc",
+                "id": 1
+            }
+        ]
+    }
+}

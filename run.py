@@ -1,8 +1,9 @@
 import Database as db
 
-js = db.Database('database.json')
-js.create_table('patients', [{'name': 'name', 'type': 'string'}, {'name': 'country', 'type': 'string'},
-                             {'name': 'category', 'type': 'string'}, {'name': 'year', 'type': 'integer'}])
+js = db.Database('tollgate.json')
+js.create_database()
+js.create_table('car', [{'name': 'licence', 'type': 'string'}, {'name': 'brand', 'type': 'string'},
+                             {'name': 'owner_id', 'type': 'string'}, {'name': 'year', 'type': 'integer'}])
 # js.create_table('bills', [{'name': 'patient_id', 'type': 'integer'}, {'name': 'amount', 'type': 'float'},
 #                           {'name': 'currency', 'type': 'string'}, {'name': 'year', 'type': 'integer'}])
 # js.insert_data('patients', {'name': 'saml', 'country': 'zim', 'category': 'ICU', 'year': 2023})

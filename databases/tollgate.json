@@ -1,0 +1,56 @@
+{
+    "car": {
+        "schema": [
+            {
+                "name": "licence",
+                "type": "string"
+            },
+            {
+                "name": "brand",
+                "type": "string"
+            },
+            {
+                "name": "owner_id",
+                "type": "string"
+            },
+            {
+                "name": "year",
+                "type": "integer"
+            },
+            {
+                "name": "id",
+                "type": "integer"
+            }
+        ],
+        "values": [
+            {
+                "licence": "ABU-56",
+                "brand": "Toyota",
+                "owner_id": "MJarai",
+                "year": 2008,
+                "id": 1
+            }
+        ]
+    },
+    "drivers": {
+        "schema": [
+            {
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "name": "licences",
+                "type": "string"
+            },
+            {
+                "name": "sex",
+                "type": "integer"
+            },
+            {
+                "name": "id",
+                "type": "integer"
+            }
+        ],
+        "values": []
+    }
+}

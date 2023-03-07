@@ -132,6 +132,20 @@
                 "category": "mental case",
                 "year": 1999,
                 "id": 7
+            },
+            {
+                "name": "afro samurai",
+                "country": "rising sun",
+                "category": "too strong explain",
+                "year": 2009,
+                "id": 8
+            },
+            {
+                "name": "dudu",
+                "category": "head case",
+                "country": "freedom",
+                "year": 6722,
+                "id": 9
             }
         ]
     },
@@ -164,6 +178,24 @@
                 "amount": 500.99,
                 "currency": "usd",
                 "year": 2023,
+                "id": 1
+            }
+        ]
+    },
+    "tools": {
+        "schema": [
+            {
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "name": "id",
+                "type": "integer"
+            }
+        ],
+        "values": [
+            {
+                "name": "dagger",
                 "id": 1
             }
         ]
