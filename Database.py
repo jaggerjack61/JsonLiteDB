@@ -114,7 +114,7 @@ class Database:
                     print('Table does not exist!')
             else:
                 return False
-    def read_data(self, table):
+    def getRecords(self, table):
         output = {}
         with open(self.filename, 'r') as json_file:
             database = json.load(json_file)
@@ -171,6 +171,20 @@ class Database:
             data.append({'name':f})
         print(data)
         return data  # print the list of json files
+
+    def getSchema(self, table):
+        output = {}
+        with open(self.filename, 'r') as json_file:
+            database = json.load(json_file)
+            schema = None
+            for table_name, table_data in database.items():
+                # Get the schema and values of the table
+                if table_name == table:
+                    schema = table_data["schema"]
+                    print(schema)
+                    return schema
+
+
 
     # def create_database(self, database_name):
     # 	with open(self.filename, 'r+') as json_file:

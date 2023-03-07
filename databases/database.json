@@ -31,11 +31,32 @@
                 "id": 1
             },
             {
-                "name": "sam",
+                "name": "doc sam",
                 "country": "zim",
                 "category": "ICU",
                 "year": 2023,
                 "id": 2
+            },
+            {
+                "name": "Jax",
+                "category": "head case",
+                "country": "freedom",
+                "year": 6722,
+                "id": 3
+            },
+            {
+                "name": "Jax",
+                "category": "head case",
+                "country": "freedom",
+                "year": 6722,
+                "id": 4
+            },
+            {
+                "name": "Catche Systems",
+                "country": "Zimbabwe",
+                "category": "Emergency",
+                "year": 1999,
+                "id": 5
             }
         ]
     },
@@ -90,6 +111,27 @@
                 "category": "ICU",
                 "year": 2023,
                 "id": 4
+            },
+            {
+                "name": "Jigga",
+                "category": "head case",
+                "country": "freedom",
+                "year": 6722,
+                "id": 5
+            },
+            {
+                "name": "Jax",
+                "category": "head case",
+                "country": "freedom",
+                "year": 6722,
+                "id": 6
+            },
+            {
+                "name": "amino",
+                "country": "japan",
+                "category": "mental case",
+                "year": 1999,
+                "id": 7
             }
         ]
     },
@@ -116,6 +158,14 @@
                 "type": "integer"
             }
         ],
-        "values": []
+        "values": [
+            {
+                "patient_id": 1,
+                "amount": 500.99,
+                "currency": "usd",
+                "year": 2023,
+                "id": 1
+            }
+        ]
     }
 }

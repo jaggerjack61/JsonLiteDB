@@ -9,5 +9,5 @@ js.create_table('patients', [{'name': 'name', 'type': 'string'}, {'name': 'count
 # print(js.search_id('patients', 5))
 # js.delete_id('patients',4)
 # js.create_database('hospital')
-# js.read_data('patients')
+js.getSchema('patients')
 js.getTables()

@@ -38,7 +38,7 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
         else:
             print('nada get')
     def do_POST(self):
-        if self.path == '/':
+        if self.path == '/save':
             content_length = int(self.headers['Content-Length'])
             post_body = self.rfile.read(content_length)
             data = json.loads(post_body)
@@ -67,6 +67,43 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
             data = database.getTables()
             self.wfile.write(json.dumps(data).encode())
             print('doom')
+        elif self.path == '/table':
+            try:
+
+                print('post')
+                content_length = int(self.headers['Content-Length'])
+                post_body = self.rfile.read(content_length)
+                data = json.loads(post_body)
+                database = db.Database(str(data['database']))
+                self.send_response(200)
+                self.send_header('Content-type', JSON_CONTENT_TYPE)
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                data = database.getRecords(data['table'])
+                self.wfile.write(json.dumps(data).encode())
+                print(data)
+            except Exception as e:
+
+                print(f"An error occurred: {e}")
+        elif self.path == '/schema':
+            try:
+
+                print('post')
+                content_length = int(self.headers['Content-Length'])
+                post_body = self.rfile.read(content_length)
+                data = json.loads(post_body)
+                database = db.Database(str(data['database']))
+                self.send_response(200)
+                self.send_header('Content-type', JSON_CONTENT_TYPE)
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                data = database.getSchema(data['table'])
+                self.wfile.write(json.dumps(data).encode())
+                print(data)
+            except Exception as e:
+
+                print(f"An error occurred: {e}")
+
         else:
             print('nada post')
 

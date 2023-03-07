@@ -4,7 +4,6 @@ import json
 class Rules:
 
     def validate(self, data, schema):
-        print(data, schema)
         parsed_data = json.dumps(data)
         print(parsed_data)
         for key in data:
