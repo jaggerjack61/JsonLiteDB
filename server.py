@@ -79,7 +79,7 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
                 self.send_header('Content-type', JSON_CONTENT_TYPE)
                 self.send_header('Access-Control-Allow-Origin', '*')
                 self.end_headers()
-                data = database.getRecords(data['table'])
+                data = database.get_records(data['table'])
                 self.wfile.write(json.dumps(data).encode())
                 print(data)
             except Exception as e:

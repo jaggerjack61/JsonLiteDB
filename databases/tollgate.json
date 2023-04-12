@@ -1,79 +1,28 @@
 {
-    "car": {
-        "schema": [
-            {
-                "name": "licence",
-                "type": "string"
-            },
-            {
-                "name": "brand",
-                "type": "string"
-            },
-            {
-                "name": "owner_id",
-                "type": "string"
-            },
-            {
-                "name": "year",
-                "type": "integer"
-            },
-            {
-                "name": "id",
-                "type": "integer"
-            }
-        ],
-        "values": [
-            {
-                "licence": "ABU-56",
-                "brand": "Toyota",
-                "owner_id": "MJarai",
-                "year": 2008,
-                "id": 1
-            }
-        ]
-    },
-    "drivers": {
+    "users": {
         "schema": [
             {
                 "name": "name",
-                "type": "string"
-            },
-            {
-                "name": "licences",
-                "type": "string"
-            },
-            {
-                "name": "sex",
-                "type": "integer"
+                "type": "string",
+                "encrypted": false
             },
             {
                 "name": "id",
-                "type": "integer"
-            }
-        ],
-        "values": []
-    },
-    "licences": {
-        "schema": [
-            {
-                "name": "licence_no",
-                "type": "string"
+                "type": "string",
+                "encrypted": false
             },
             {
-                "name": "class",
-                "type": "integer"
+                "name": "ssn",
+                "type": "string",
+                "encrypted": true
             },
             {
-                "name": "id",
-                "type": "integer"
+                "name": "phone_number",
+                "type": "integer",
+                "encrypted": false
             }
         ],
-        "values": [
-            {
-                "licence_no": "ABU-5tsfhj",
-                "class": 4,
-                "id": 1
-            }
-        ]
+        "values": [],
+        "encryption_key": "45f3a9e57ebd5dae9c3d9a75ff778cde"
     }
 }

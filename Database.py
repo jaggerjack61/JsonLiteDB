@@ -1,5 +1,5 @@
 import json
-
+import secrets
 import Rules as rule
 
 
@@ -8,7 +8,25 @@ class Database:
         self.filename = 'databases/'+filename
         self.ru = rule.Rules()
 
-    def create_table(self, table_name, schema):
+    def xor_encrypt(self, data, key):
+        data_bytes = bytes(str(data), 'utf-8')
+        key_bytes = bytes(key, 'utf-8')
+        encrypted_bytes = bytes([data_byte ^ key_byte for (data_byte, key_byte) in zip(data_bytes, key_bytes * len(data_bytes))])
+        return encrypted_bytes.hex()
+
+    def xor_decrypt(self, data, key):
+        data_bytes = bytes.fromhex(data)
+        key_bytes = bytes(key, 'utf-8')
+        decrypted_bytes = bytes([data_byte ^ key_byte for (data_byte, key_byte) in zip(data_bytes, key_bytes * len(data_bytes))])
+        try:
+            return int(decrypted_bytes.decode('utf-8'))
+        except ValueError:
+            try:
+                return float(decrypted_bytes.decode('utf-8'))
+            except ValueError:
+                return decrypted_bytes.decode('utf-8')
+
+    def create_table(self, table_name, schema, encryption_key=None):
         schema = self.ru.check_id_schema(schema)
         with open(self.filename, 'r+', encoding='utf-8') as json_file:
             database = json.load(json_file)
@@ -19,6 +37,11 @@ class Database:
                 database[table_name] = {}
                 database[table_name]['schema'] = schema
                 database[table_name]['values'] = []
+                if encryption_key:
+                    database[table_name]['encryption_key'] = encryption_key
+                else:
+                    encryption_key = secrets.token_hex(16)  # Generate a random 128-bit encryption key
+                    database[table_name]['encryption_key'] = encryption_key
                 json_file.seek(0)
                 json.dump(database, json_file, indent=4)
                 return True
@@ -31,7 +54,18 @@ class Database:
                 if 'values' in database[table_name]:
                     if self.ru.validate(data, database[table_name]['schema']):
                         table = database[table_name]['values']
-                        table.append(data)
+
+                        encrypted_data = {}
+                        for key, value in data.items():
+                            encryption_key = database[table_name].get('encryption_key')
+                            for column in database[table_name]['schema']:
+                                if column['name'] == key:
+                                    if column.get('encrypted') and encryption_key:
+                                        value = self.xor_encrypt(value, encryption_key)
+                                    break
+                            encrypted_data[key] = value
+
+                        table.append(encrypted_data)
                         database[table_name]['values'] = table
                         json_file.seek(0)
                         json.dump(database, json_file, indent=4)
@@ -45,6 +79,39 @@ class Database:
                         json.dump(database, json_file, indent=4)
             else:
                 print('Table does not exist!')
+
+    def get_records(self, table):
+        output = {}
+        with open(self.filename, 'r') as json_file:
+            database = json.load(json_file)
+            for table_name, table_data in database.items():
+                if table_name == table:
+                    schema = table_data["schema"]
+                    values = table_data["values"]
+                    encryption_key = table_data.get("encryption_key")
+                    output[table_name] = []
+
+                    for row in values:
+                        output_row = {}
+                        for column in schema:
+                            name = column["name"]
+                            type = column["type"]
+                            encrypted = column.get("encrypted", False)
+                            value = row[name]
+
+                            if encrypted and encryption_key:
+                                value = self.xor_decrypt(value, encryption_key)
+
+                            if type == "integer":
+                                value = int(value)
+                            elif type == "float":
+                                value = float(value)
+
+                            output_row[name] = value
+                        output[table_name].append(output_row)
+
+            print(output)
+            return output
 
     def delete_data(self, table_name, data):
         with open(self.filename, 'r+', encoding='utf-8') as json_file:
@@ -116,41 +183,7 @@ class Database:
                     print('Table does not exist!')
             else:
                 return False
-    def getRecords(self, table):
-        output = {}
-        with open(self.filename, 'r') as json_file:
-            database = json.load(json_file)
-            for table_name, table_data in database.items():
-                # Get the schema and values of the table
-                schema = table_data["schema"]
-                values = table_data["values"]
-                # Create an empty list to store the rows of the table
-                if(table_name == table):
-                    output[table_name] = []
-                    # Loop through each row in values
-                    for row in values:
-                        # Create an empty dictionary to store the columns of the row
-                        output_row = {}
-                        # Loop through each column in schema
-                        for column in schema:
-                            # Get the name and type of the column
-                            name = column["name"]
-                            type = column["type"]
-                            # Get the value of the column for this row
-                            value = row[name]
-                            # Convert the value to its type if needed
-                            if type == "integer":
-                                value = int(value)
-                            elif type == "float":
-                                value = float(value)
-                            # Store the value with its name in the output row dictionary
-                            output_row[name] = value
-                        # Append the output row dictionary to the output table list
-                        output[table_name].append(output_row)
 
-                # Return the output dictionary as well (optional)
-            print(output)
-            return output
 
 
     def getTables(self):

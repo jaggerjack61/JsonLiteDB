@@ -1,0 +1,54 @@
+{
+    "test": {
+        "schema": [
+            {
+                "name": "user",
+                "type": "string",
+                "encrypted": false
+            },
+            {
+                "name": "pass",
+                "type": "integer",
+                "encrypted": true
+            },
+            {
+                "name": "id",
+                "type": "integer"
+            }
+        ],
+        "values": [
+            {
+                "user": "34",
+                "pass": "565704",
+                "id": 1
+            }
+        ],
+        "encryption_key": "bb2918fc56da1e5ea41864e67aa56360"
+    },
+    "test_2": {
+        "schema": [
+            {
+                "name": "name",
+                "type": "string",
+                "encrypted": false
+            },
+            {
+                "name": "pass",
+                "type": "string",
+                "encrypted": true
+            },
+            {
+                "name": "id",
+                "type": "integer"
+            }
+        ],
+        "values": [
+            {
+                "name": "sam",
+                "pass": "12034b40",
+                "id": 1
+            }
+        ],
+        "encryption_key": "bb8327893bf0103c82e52cac45f9b7da"
+    }
+}

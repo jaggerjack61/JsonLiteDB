@@ -13,11 +13,14 @@ class Rules:
                     i = 1
             if not (i == 1):
                 return False
+
             for i in range(len(schema)):
                 key = schema[i]['name']
                 dtype = schema[i]['type']
                 if dtype == 'string':
                     if not isinstance(data[key], str):
+                        return False
+                    if len(data[key]) > schema[i].get('length', 255):
                         return False
                 elif dtype == 'integer':
                     if not isinstance(data[key], int):
@@ -49,3 +52,4 @@ class Rules:
                 id = 1
             data.update({'id': id})
             return data
+
