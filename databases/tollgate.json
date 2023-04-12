@@ -52,5 +52,28 @@
             }
         ],
         "values": []
+    },
+    "licences": {
+        "schema": [
+            {
+                "name": "licence_no",
+                "type": "string"
+            },
+            {
+                "name": "class",
+                "type": "integer"
+            },
+            {
+                "name": "id",
+                "type": "integer"
+            }
+        ],
+        "values": [
+            {
+                "licence_no": "ABU-5tsfhj",
+                "class": 4,
+                "id": 1
+            }
+        ]
     }
 }

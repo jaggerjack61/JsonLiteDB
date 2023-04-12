@@ -1,29 +1,8 @@
 {
-    "transformer_robots": {
+    "products": {
         "schema": [
             {
                 "name": "name",
-                "type": "integer"
-            },
-            {
-                "name": "amount_of arms",
-                "type": "string"
-            },
-            {
-                "name": "id",
-                "type": "integer"
-            }
-        ],
-        "values": []
-    },
-    "test": {
-        "schema": [
-            {
-                "name": "num",
-                "type": "integer"
-            },
-            {
-                "name": "string",
                 "type": "string"
             },
             {
@@ -33,8 +12,7 @@
         ],
         "values": [
             {
-                "num": 1,
-                "string": "abc",
+                "name": "rice",
                 "id": 1
             }
         ]

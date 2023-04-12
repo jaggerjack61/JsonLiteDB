@@ -1,0 +1,19 @@
+{
+    "Family_Members": {
+        "schema": [
+            {
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "name": "relation",
+                "type": "string"
+            },
+            {
+                "name": "id",
+                "type": "integer"
+            }
+        ],
+        "values": []
+    }
+}
