@@ -92,5 +92,45 @@
             }
         ],
         "encryption_key": "29b2c2b1c4255202bf6e4a8928a3f2db"
+    },
+    "hash": {
+        "schema": [
+            {
+                "name": "name",
+                "type": "string",
+                "encrypted": false,
+                "length": 30
+            },
+            {
+                "name": "pass",
+                "type": "integer",
+                "encrypted": true
+            },
+            {
+                "name": "hash",
+                "type": "string",
+                "encrypted": true,
+                "length": 15
+            },
+            {
+                "name": "id",
+                "type": "integer"
+            }
+        ],
+        "values": [
+            {
+                "name": "samuel",
+                "pass": "06040b02",
+                "hash": "53505f5c464340564749",
+                "id": 1
+            },
+            {
+                "name": "samuel dave",
+                "pass": "06040b02",
+                "hash": "53505f5c4643",
+                "id": 2
+            }
+        ],
+        "encryption_key": "7686372341b28dd03d0d337cbaf11286"
     }
 }
