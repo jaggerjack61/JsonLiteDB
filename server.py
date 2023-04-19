@@ -46,13 +46,20 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
             table = data['table']
             database_name = data.pop('database')
             table_name = data.pop('table')
-            database.insert_data(table, data)
-            self.send_response(200)
-            self.send_header('Content-type', JSON_CONTENT_TYPE)
-            self.send_header('Access-Control-Allow-Origin', '*')
-            self.end_headers()
-            data = {"message": "Record saved successfully"}
-            self.wfile.write(json.dumps(data).encode())
+            if(database.insert_data(table, data)):
+                self.send_response(200)
+                self.send_header('Content-type', JSON_CONTENT_TYPE)
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                data = {"message": "Record saved successfully"}
+                self.wfile.write(json.dumps(data).encode())
+            else:
+                self.send_response(200)
+                self.send_header('Content-type', JSON_CONTENT_TYPE)
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                data = {"message": "Record failed to save"}
+                self.wfile.write(json.dumps(data).encode())
 
         elif self.path == '/database':
             print('post')

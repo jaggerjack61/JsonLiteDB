@@ -69,6 +69,9 @@ class Database:
                         database[table_name]['values'] = table
                         json_file.seek(0)
                         json.dump(database, json_file, indent=4)
+                        return True
+                    else:
+                        return False
                 else:
                     database[table_name]['values'] = []
                     if self.ru.validate(data, database[table_name]['schema']):
@@ -77,8 +80,10 @@ class Database:
                         database[table_name]['values'] = table
                         json_file.seek(0)
                         json.dump(database, json_file, indent=4)
+                        return True
             else:
                 print('Table does not exist!')
+                return False
 
     def get_records(self, table):
         output = {}

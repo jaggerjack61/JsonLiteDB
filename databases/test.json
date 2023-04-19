@@ -50,5 +50,47 @@
             }
         ],
         "encryption_key": "bb8327893bf0103c82e52cac45f9b7da"
+    },
+    "users2": {
+        "schema": [
+            {
+                "name": "name",
+                "type": "string",
+                "encrypted": false,
+                "length": 10
+            },
+            {
+                "name": "ssn",
+                "type": "integer",
+                "encrypted": true
+            },
+            {
+                "name": "id",
+                "type": "integer"
+            }
+        ],
+        "values": [
+            {
+                "name": "sam",
+                "ssn": "030b5106",
+                "id": 1
+            },
+            {
+                "name": "sam 12",
+                "ssn": "030b51",
+                "id": 2
+            },
+            {
+                "name": "sam 12689",
+                "ssn": "030b51",
+                "id": 3
+            },
+            {
+                "name": "sam 12",
+                "ssn": "030b51065604",
+                "id": 4
+            }
+        ],
+        "encryption_key": "29b2c2b1c4255202bf6e4a8928a3f2db"
     }
 }
