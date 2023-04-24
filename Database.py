@@ -49,41 +49,45 @@ class Database:
     def insert_data(self, table_name, data):
         with open(self.filename, 'r+', encoding='utf-8') as json_file:
             database = json.load(json_file)
-            data = self.ru.check_id_values(database, table_name, data)
-            if table_name in database:
-                if 'values' in database[table_name]:
-                    if self.ru.validate(data, database[table_name]['schema']):
-                        table = database[table_name]['values']
+            if isinstance(data, dict):  # check if data is a single record
+                data = [data]
+            for record in data:
+                data = self.ru.check_id_values(database, table_name, record)
+                if table_name in database:
+                    if 'values' in database[table_name]:
+                        if self.ru.validate(data, database[table_name]['schema']):
+                            table = database[table_name]['values']
 
-                        encrypted_data = {}
-                        for key, value in data.items():
-                            encryption_key = database[table_name].get('encryption_key')
-                            for column in database[table_name]['schema']:
-                                if column['name'] == key:
-                                    if column.get('encrypted') and encryption_key:
-                                        value = self.xor_encrypt(value, encryption_key)
-                                    break
-                            encrypted_data[key] = value
+                            encrypted_data = {}
+                            for key, value in data.items():
+                                encryption_key = database[table_name].get('encryption_key')
+                                for column in database[table_name]['schema']:
+                                    if column['name'] == key:
+                                        if column.get('encrypted') and encryption_key:
+                                            value = self.xor_encrypt(value, encryption_key)
+                                        break
+                                encrypted_data[key] = value
 
-                        table.append(encrypted_data)
-                        database[table_name]['values'] = table
-                        json_file.seek(0)
-                        json.dump(database, json_file, indent=4)
-                        return True
+                            table.append(encrypted_data)
+                            database[table_name]['values'] = table
+                            json_file.seek(0)
+                            json.dump(database, json_file, indent=4)
+                        else:
+                            return False
                     else:
-                        return False
+                        database[table_name]['values'] = []
+                        if self.ru.validate(data, database[table_name]['schema']):
+                            table = database[table_name]['values']
+                            table.append(data)
+                            database[table_name]['values'] = table
+                            json_file.seek(0)
+                            json.dump(database, json_file, indent=4)
+                        else:
+                            return False
                 else:
-                    database[table_name]['values'] = []
-                    if self.ru.validate(data, database[table_name]['schema']):
-                        table = database[table_name]['values']
-                        table.append(data)
-                        database[table_name]['values'] = table
-                        json_file.seek(0)
-                        json.dump(database, json_file, indent=4)
-                        return True
-            else:
-                print('Table does not exist!')
-                return False
+                    print('Table does not exist!')
+                    return False
+            return True
 
     def get_records(self, table):
         output = {}
