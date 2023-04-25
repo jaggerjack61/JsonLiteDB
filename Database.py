@@ -46,6 +46,19 @@ class Database:
                 json.dump(database, json_file, indent=4)
                 return True
 
+    def delete_table(self, table_name):
+        with open(self.filename, 'r+', encoding='utf-8') as json_file:
+            database = json.load(json_file)
+            if table_name not in database:
+                print('Table does not exist!')
+                return False
+            else:
+                del database[table_name]
+                json_file.seek(0)
+                json_file.truncate(0)
+                json.dump(database, json_file, indent=4)
+                return True
+
     def insert_data(self, table_name, data):
         with open(self.filename, 'r+', encoding='utf-8') as json_file:
             database = json.load(json_file)
@@ -89,7 +102,28 @@ class Database:
                     return False
             return True
 
-    def get_records(self, table):
+    def delete_id(self, table_name, id):
+        with open(self.filename, 'r+', encoding='utf-8') as json_file:
+            database = json.load(json_file)
+            data = self.search_id(table_name, id)
+            if data:
+                if table_name in database:
+                    table = database[table_name]['values']
+                    for item in table:
+                        if item == data:
+                            table.remove(item)
+                            database[table_name]['values'] = table
+                            with open(self.filename, 'w+', encoding='utf-8') as json_file:
+                                json_file.seek(0)
+                                json.dump(database, json_file, indent=4)
+                                print('Data deleted successfully!')
+
+                else:
+                    print('Table does not exist!')
+            else:
+                print('could not find specified record')
+
+    def get_records(self, table, keywords=None, or_conditions=None, and_conditions=None):
         output = {}
         with open(self.filename, 'r') as json_file:
             database = json.load(json_file)
@@ -117,10 +151,69 @@ class Database:
                                 value = float(value)
 
                             output_row[name] = value
-                        output[table_name].append(output_row)
-
+                        # Check if row matches keywords, OR conditions, and AND conditions
+                        if (not keywords or any(
+                                keyword.lower() in str(output_row.values()).lower() for keyword in keywords)) and \
+                                (not or_conditions or any(
+                                    self.check_condition(condition, output_row) for condition in or_conditions)) and \
+                                (not and_conditions or all(
+                                    self.check_condition(condition, output_row) for condition in and_conditions)):
+                            output[table_name].append(output_row)
             print(output)
             return output
+
+    def check_condition(self, condition, row):
+        # Parse the condition string into a left operand, an operator, and a right operand
+        # Assume the condition is well-formed and valid
+        left, op, right = condition.split()
+        # Get the value of the left operand from the row dictionary
+        left_value = row[left]
+        # Convert the right operand to the same type as the left operand
+        right_value = type(left_value)(right)
+        # Compare the values using the operator
+        if op == "==":
+            return left_value == right_value
+        elif op == "!=":
+            return left_value != right_value
+        elif op == "<":
+            return left_value < right_value
+        elif op == ">":
+            return left_value > right_value
+        elif op == "<=":
+            return left_value <= right_value
+        elif op == ">=":
+            return left_value >= right_value
+        else:
+            return False
+
+    def edit_data(self, table_name, id, new_data):
+        with open(self.filename, 'r+', encoding='utf-8') as json_file:
+            database = json.load(json_file)
+            if table_name in database:
+                table = database[table_name]['values']
+                for record in table:
+                    if record.get('id') == id:
+                        # Update the record with the new data
+                        for key, value in new_data.items():
+                            encryption_key = database[table_name].get('encryption_key')
+                            for column in database[table_name]['schema']:
+                                if column['name'] == key:
+                                    if column.get('encrypted') and encryption_key:
+                                        value = self.xor_encrypt(value, encryption_key)
+                                    break
+                            record[key] = value
+
+                        # Rewrite the database file with the updated data
+                        with open(self.filename, 'w+', encoding='utf-8') as json_file:
+                            json_file.seek(0)
+                            json.dump(database, json_file, indent=4)
+                            print('Record edited successfully!')
+                        return True
+                print('Record not found!')
+                return False
+            else:
+                print('Table does not exist!')
+                return False
 
     def delete_data(self, table_name, data):
         with open(self.filename, 'r+', encoding='utf-8') as json_file:
@@ -139,26 +232,7 @@ class Database:
             else:
                 print('Table does not exist!')
 
-    def delete_id(self, table_name, id):
-        with open(self.filename, 'r+', encoding='utf-8') as json_file:
-            database = json.load(json_file)
-            data = self.search_id(table_name, id)
-            if data:
-                if table_name in database:
-                    table = database[table_name]['values']
-                    for item in table:
-                        if item == data:
-                            table.remove(item)
-                            database[table_name]['values'] = table
-                            with open(self.filename, 'w+', encoding='utf-8') as json_file:
-                                json_file.seek(0)
-                                json.dump(database, json_file, indent=4)
-                                print('Data deleted successfully!')
 
-                else:
-                    print('Table does not exist!')
-            else:
-                print('could not find specified record')
 
     def search_data(self, table_name, search_data):
         with open(self.filename, 'r') as json_file:
