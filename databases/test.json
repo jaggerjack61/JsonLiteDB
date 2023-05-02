@@ -129,8 +129,42 @@
                 "pass": "06040b02",
                 "hash": "53505f5c4643",
                 "id": 2
+            },
+            {
+                "name": "sam 12",
+                "pass": "0604",
+                "hash": "5c5c505155",
+                "id": 3
             }
         ],
         "encryption_key": "7686372341b28dd03d0d337cbaf11286"
+    },
+    "my": {
+        "schema": [
+            {
+                "name": "name",
+                "type": "string",
+                "encrypted": false,
+                "length": 5
+            },
+            {
+                "name": "age",
+                "type": "integer",
+                "encrypted": false,
+                "length": 2
+            },
+            {
+                "name": "money",
+                "type": "float",
+                "encrypted": false,
+                "length": 4
+            },
+            {
+                "name": "id",
+                "type": "integer"
+            }
+        ],
+        "values": [],
+        "encryption_key": "0300a8b257c187501b522c11b7569cc7"
     }
 }

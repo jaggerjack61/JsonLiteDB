@@ -25,8 +25,13 @@ class Rules:
                 elif dtype == 'integer':
                     if not isinstance(data[key], int):
                         return False
+                    if len(str(data[key])) > schema[i].get('length', 255):
+                        return False
                 elif dtype == 'float':
+                    data[key] = float(data[key])
                     if not isinstance(data[key], float):
+                        return False
+                    if len(str(data[key]))-1 > schema[i].get('length', 255):
                         return False
         return True
 

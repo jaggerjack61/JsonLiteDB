@@ -81,6 +81,7 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
                 content_length = int(self.headers['Content-Length'])
                 post_body = self.rfile.read(content_length)
                 data = json.loads(post_body)
+                print(post_body)
                 database = db.Database(str(data['database']))
                 self.send_response(200)
                 self.send_header('Content-type', JSON_CONTENT_TYPE)
@@ -146,13 +147,54 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
                 if database.create_table(data['table'], data['schema']):
                     data = {"message": "table created successfully"}
                 else:
-                    data = {"message": "database could not be created"}
+                    data = {"message": "table could not be created"}
                 self.wfile.write(json.dumps(data).encode())
                 print(data)
             except Exception as e:
 
                 print(f"An error occurred: {e}")
+        elif self.path == '/delete/table':
+            try:
 
+                print('post')
+                content_length = int(self.headers['Content-Length'])
+                post_body = self.rfile.read(content_length)
+                data = json.loads(post_body)
+                database = db.Database(data['database']+'.json')
+                self.send_response(200)
+                self.send_header('Content-type', JSON_CONTENT_TYPE)
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                if database.delete_table(data['table']):
+                    data = {"message": "table deleted successfully"}
+                else:
+                    data = {"message": "table could not be deleted"}
+                self.wfile.write(json.dumps(data).encode())
+                print(data)
+            except Exception as e:
+
+                print(f"An error occurred: {e}")
+        elif self.path == '/delete/record':
+            try:
+
+                print('post')
+                content_length = int(self.headers['Content-Length'])
+                post_body = self.rfile.read(content_length)
+                data = json.loads(post_body)
+                database = db.Database(data['database']+'.json')
+                self.send_response(200)
+                self.send_header('Content-type', JSON_CONTENT_TYPE)
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                if database.delete_id(data['table'], data['id']):
+                    data = {"message": "record deleted successfully"}
+                else:
+                    data = {"message": "record could not be deleted"}
+                self.wfile.write(json.dumps(data).encode())
+                print(data)
+            except Exception as e:
+
+                print(f"An error occurred: {e}")
         else:
             print('nada post')
 

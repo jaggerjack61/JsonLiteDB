@@ -33,6 +33,13 @@
                 "age": 26,
                 "ssn": "5107560156",
                 "id": 1
+            },
+            {
+                "username": "sam",
+                "password": "13551141",
+                "age": 12,
+                "ssn": "57",
+                "id": 2
             }
         ],
         "encryption_key": "c4b2d544eaf748ce00ea620c2db32004"

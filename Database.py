@@ -60,6 +60,8 @@ class Database:
                 return True
 
     def insert_data(self, table_name, data):
+        print('hereeeeeeeeeeeeee')
+        print(data)
         with open(self.filename, 'r+', encoding='utf-8') as json_file:
             database = json.load(json_file)
             if isinstance(data, dict):  # check if data is a single record
@@ -117,11 +119,14 @@ class Database:
                                 json_file.seek(0)
                                 json.dump(database, json_file, indent=4)
                                 print('Data deleted successfully!')
+                                return True
 
                 else:
                     print('Table does not exist!')
+                    return False
             else:
                 print('could not find specified record')
+                return False
 
     def get_records(self, table, keywords=None, or_conditions=None, and_conditions=None):
         output = {}
