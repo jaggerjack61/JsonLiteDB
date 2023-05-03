@@ -60,8 +60,6 @@ class Database:
                 return True
 
     def insert_data(self, table_name, data):
-        print('hereeeeeeeeeeeeee')
-        print(data)
         with open(self.filename, 'r+', encoding='utf-8') as json_file:
             database = json.load(json_file)
             if isinstance(data, dict):  # check if data is a single record
@@ -164,7 +162,6 @@ class Database:
                                 (not and_conditions or all(
                                     self.check_condition(condition, output_row) for condition in and_conditions)):
                             output[table_name].append(output_row)
-            print(output)
             return output
 
     def check_condition(self, condition, row):

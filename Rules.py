@@ -5,7 +5,6 @@ class Rules:
 
     def validate(self, data, schema):
         parsed_data = json.dumps(data)
-        print(parsed_data)
         for key in data:
             i = 0
             for column in schema:
